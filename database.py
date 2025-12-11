@@ -24,7 +24,23 @@ def get_db():
 
 
 
-# # database.py → NAYA AUR BEST VERSION
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
 # from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 # from sqlalchemy.orm import declarative_base
 # import config
@@ -38,4 +54,5 @@ def get_db():
 
 # async def get_db():
 #     async with AsyncSessionLocal() as session:
+
 #         yield session
