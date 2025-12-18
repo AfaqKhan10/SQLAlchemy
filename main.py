@@ -240,7 +240,7 @@ def my_profile(current_user: User = Depends(get_current_user)):
     }
 
 
-# ➤ Admin only route – sirf admin dekh sakega
+# ➤ Admin only route – only admin can see 
 @app.get("/admin/dashboard")
 def admin_dashboard(
     current_user: User = Depends(get_current_user),
@@ -253,8 +253,7 @@ def admin_dashboard(
     return {
         "message": "Welcome to Admin Dashboard!",
         "admin_user": current_user.name,
-        "total_users": db.query(User).count(),          # ← db use kar rahe hain
-        "total_orders": db.query(Order).count(),       # ← db use kar rahe hain
+        "total_users": db.query(User).count(),         
+        "total_orders": db.query(Order).count(),       
         "your_scopes": current_user.scopes
     }
-
