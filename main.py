@@ -5,12 +5,10 @@ from models import User, Order, Product
 from exceptions import *
 from fastapi.security import OAuth2PasswordRequestForm
 from auth import hash_password, verify_password, create_access_token, get_current_user
-# Rate Limiting ke liye imports
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from fastapi import Request
-
 
 
 app = FastAPI()
@@ -40,7 +38,7 @@ def create_order(item: str, user_id: int, db: Session = Depends(get_db)):
 def get_user(user_id: int, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
-        raise UserNotFound()                    # ← ab custom exception chalega
+        raise UserNotFound()                    
     return {
         "id": user.id,
         "name": user.name,
@@ -259,5 +257,4 @@ def admin_dashboard(
         "total_orders": db.query(Order).count(),       # ← db use kar rahe hain
         "your_scopes": current_user.scopes
     }
-
 
