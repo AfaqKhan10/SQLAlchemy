@@ -123,7 +123,7 @@ def create_user_with_orders(name: str, email: str, items: list[str], db: Session
 #   MANY-TO-MANY (Order + Products)
 # -------------------------
 
-# ← YE LINE ADD KARNA MAT BHULNA
+
 @app.post("/users/{user_id}/orders")
 def create_order_with_products(
     user_id: int,
