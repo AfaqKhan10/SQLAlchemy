@@ -13,16 +13,15 @@ from fastapi import Request
 
 app = FastAPI()
 
-
 # Rate Limiting setup – spam rokne ke liye
 limiter = Limiter(key_func=get_remote_address)  # IP address se track karega
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, lambda request, exc: ({"detail": "Bhai thoda wait kar lo – bohot tezi se requests bhej rahe ho!"}, 429))
 
+
 # -------------------------
 #   CREATE ENDPOINTS
 # -------------------------
-
 
 # ➤ Create order
 @app.post("/orders")
@@ -259,4 +258,5 @@ def admin_dashboard(
         "total_orders": db.query(Order).count(),       
         "your_scopes": current_user.scopes
     }
+
 
