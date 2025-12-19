@@ -63,6 +63,7 @@ def fetch_user(user_id: int, db: Session = Depends(get_db)):
         raise UserNotFound()                    # ← custom exception
     return {"id": user.id, "name": user.name, "email": user.email}
 
+
 # ➤ Fetch orders of a user (relationship)
 @app.get("/users/{user_id}/orders")
 def fetch_user_orders(user_id: int, db: Session = Depends(get_db)):
@@ -119,10 +120,11 @@ def create_user_with_orders(name: str, email: str, items: list[str], db: Session
         db.rollback()  # rollback in case of error
         raise ValidationException("Transaction failed")   # ← custom exception
 
+
+
 # -------------------------
 #   MANY-TO-MANY (Order + Products)
 # -------------------------
-
 
 @app.post("/users/{user_id}/orders")
 def create_order_with_products(
@@ -257,3 +259,4 @@ def admin_dashboard(
         "total_orders": db.query(Order).count(),       
         "your_scopes": current_user.scopes
     }
+
