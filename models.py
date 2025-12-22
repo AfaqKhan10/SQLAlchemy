@@ -28,7 +28,7 @@ order_product = Table(
     Column("product_id", Integer, ForeignKey("products.id"), primary_key=True)
 )
 
-# 🔹 Order table model
+# Order table model
 class Order(Base):
     __tablename__ = "orders"
     id = Column(Integer, primary_key=True)  # Order ka unique ID
@@ -47,5 +47,6 @@ class Product(Base):
 
     # Is product kitne orders mein hai
     orders = relationship("Order", secondary=order_product, back_populates="products")
+
 
 
