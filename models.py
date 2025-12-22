@@ -4,7 +4,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey ,Table , Boolean
 
 Base = declarative_base()
 
-# 🔹 User table model
+#  User table model
 class User(Base):
     __tablename__ = "users"  # Table ka naam database me
     id = Column(Integer, primary_key=True)  # User ka unique ID
@@ -47,4 +47,5 @@ class Product(Base):
 
     # Is product kitne orders mein hai
     orders = relationship("Order", secondary=order_product, back_populates="products")
+
 
