@@ -6,16 +6,14 @@ Base = declarative_base()
 
 #  User table model
 class User(Base):
-    __tablename__ = "users"  # Table ka naam database me
-    id = Column(Integer, primary_key=True)  # User ka unique ID
-    name = Column(String, nullable=False)  # User ka name field
-    email = Column(String, unique=True, nullable=False)  # Email field
-    hashed_password = Column(String, nullable=False)  # Password safe hash mein save hoga
-    
-    # NAYA FIELD – admin ya normal user check karne ke liye
-    is_admin = Column(Boolean, default=False)  # default False = normal user, True = admin user
+    __tablename__ = "users"  e
+    id = Column(Integer, primary_key=True)  
+    name = Column(String, nullable=False)  
+    email = Column(String, unique=True, nullable=False)  
+    hashed_password = Column(String, nullable=False)  
 
-    # Relationship: ek user ke multiple orders ho sakte hain
+    is_admin = Column(Boolean, default=False)  
+
     orders = relationship("Order", back_populates="user")  
     
 
@@ -47,6 +45,7 @@ class Product(Base):
 
     # Is product kitne orders mein hai
     orders = relationship("Order", secondary=order_product, back_populates="products")
+
 
 
 
