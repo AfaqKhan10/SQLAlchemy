@@ -3,10 +3,9 @@ from fastapi import HTTPException
 from typing import Any
 
 
-# Base class – sab custom exceptions is se inherit karenge
+
 class AppException(HTTPException):
     def __init__(self, status_code: int, message: str, extra: Any = None):
-        # Client ko sirf English message dikhega
         detail = {"error": True, "message": message}
         if extra:
             detail.update(extra)
@@ -16,7 +15,6 @@ class AppException(HTTPException):
 # 404 – Not Found
 class NotFoundException(AppException):
     def __init__(self, item: str = "Resource"):
-        # Roman Urdu comment: bhai jo dhund raha hai wo nahi mila
         super().__init__(404, f"{item} not found")
 
 
@@ -28,15 +26,13 @@ class OrderNotFound(NotFoundException):
     def __init__(self):
         super().__init__("Order")        
 
-
 class ProductNotFound(NotFoundException):
     def __init__(self):
         super().__init__("Product")      
 
-# 401 – Unauthorized
+
 class AuthException(AppException):
     def __init__(self):
-        # Roman Urdu comment: token galat ya expire ho gaya
         super().__init__(401, "Invalid or expired token")
 
 
@@ -53,3 +49,4 @@ class ValidationException(AppException):
         # Roman Urdu comment: user ne galat data bheja
 
         super().__init__(400, message)
+
