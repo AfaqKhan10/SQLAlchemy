@@ -1,7 +1,5 @@
-# exceptions.py
 from fastapi import HTTPException
 from typing import Any
-
 
 
 class AppException(HTTPException):
@@ -12,7 +10,6 @@ class AppException(HTTPException):
         super().__init__(status_code=status_code, detail=detail)
 
 
-# 404 – Not Found
 class NotFoundException(AppException):
     def __init__(self, item: str = "Resource"):
         super().__init__(404, f"{item} not found")
@@ -36,17 +33,13 @@ class AuthException(AppException):
         super().__init__(401, "Invalid or expired token")
 
 
-# 403 – Forbidden
+
 class PermissionException(AppException):
     def __init__(self):
-        # Roman Urdu comment: bhai tumhe permission nahi hai
         super().__init__(403, "You do not have permission to perform this action")
 
 
-# 400 – Bad Request (validation errors etc.)
 class ValidationException(AppException):
     def __init__(self, message: str = "Invalid data provided"):
-        # Roman Urdu comment: user ne galat data bheja
 
         super().__init__(400, message)
-
