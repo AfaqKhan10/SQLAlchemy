@@ -22,18 +22,16 @@ class NotFoundException(AppException):
 
 class UserNotFound(NotFoundException):
     def __init__(self):
-        super().__init__("User")          # message → "User not found"
-
+        super().__init__("User")          
 
 class OrderNotFound(NotFoundException):
     def __init__(self):
-        super().__init__("Order")         # message → "Order not found"
+        super().__init__("Order")        
 
 
 class ProductNotFound(NotFoundException):
     def __init__(self):
-        super().__init__("Product")       # message → "Product not found"
-
+        super().__init__("Product")      
 
 # 401 – Unauthorized
 class AuthException(AppException):
@@ -53,4 +51,5 @@ class PermissionException(AppException):
 class ValidationException(AppException):
     def __init__(self, message: str = "Invalid data provided"):
         # Roman Urdu comment: user ne galat data bheja
+
         super().__init__(400, message)
