@@ -255,7 +255,4 @@ def admin_dashboard(
         "total_orders": db.query(Order).count(),       
         "your_scopes": current_user.scopes
     }
-
-
-
-
+    
