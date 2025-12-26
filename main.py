@@ -116,8 +116,7 @@ def create_user_with_orders(name: str, email: str, items: list[str], db: Session
 
     except Exception as e:
         db.rollback()  # rollback in case of error
-        raise ValidationException("Transaction failed")   # ← custom exception
-
+        raise ValidationException("Transaction failed") 
 
 
 # -------------------------
@@ -160,7 +159,7 @@ def get_user_orders_with_products(user_id: int, db: Session = Depends(get_db)):
         orders_list.append({
             "order_id": order.id,
             "created_for": order.item,           
-            "products": [p.name for p in order.products]   # ← YAHAN ASLI PRODUCTS DIKHENGE
+            "products": [p.name for p in order.products]  
         })
     
     return {
@@ -180,14 +179,13 @@ def get_product_by_name(product_name: str, db: Session = Depends(get_db)):
     product = db.query(Product).filter(Product.name == product_name).first()
     
     if not product:
-        raise ProductNotFound()        # Triggers → {"error": true, "message": "Product not found"}
+        raise ProductNotFound()     
     
     return {
         "id": product.id,
         "name": product.name,
         "message": "Product Founded Successfully"
     }
-
 
 
 
@@ -257,6 +255,7 @@ def admin_dashboard(
         "total_orders": db.query(Order).count(),       
         "your_scopes": current_user.scopes
     }
+
 
 
 
