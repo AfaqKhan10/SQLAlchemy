@@ -13,8 +13,7 @@ from fastapi import Request
 
 app = FastAPI()
 
-# Rate Limiting setup – spam rokne ke liye
-limiter = Limiter(key_func=get_remote_address)  # IP address se track karega
+limiter = Limiter(key_func=get_remote_address)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, lambda request, exc: ({"detail": "Bhai thoda wait kar lo – bohot tezi se requests bhej rahe ho!"}, 429))
 
@@ -68,7 +67,7 @@ def fetch_user(user_id: int, db: Session = Depends(get_db)):
 def fetch_user_orders(user_id: int, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
-        raise UserNotFound()                    # ← custom exception
+        raise UserNotFound()                  
     return {
         "user": user.name,
         "orders": [o.item for o in user.orders]
@@ -133,7 +132,7 @@ def create_order_with_products(
 ):
     user = db.query(User).get(user_id)
     if not user:
-        raise UserNotFound()                    # ← custom exception
+        raise UserNotFound()                   
 
     new_order = Order(item="Cloths Order", user_id=user_id)
     db.add(new_order)
@@ -154,13 +153,13 @@ def create_order_with_products(
 def get_user_orders_with_products(user_id: int, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
-        raise UserNotFound()                    # ← custom exception
+        raise UserNotFound()                    
     
     orders_list = []
     for order in user.orders:
         orders_list.append({
             "order_id": order.id,
-            "created_for": order.item,           # ye ab "Food Order" dikhega
+            "created_for": order.item,           
             "products": [p.name for p in order.products]   # ← YAHAN ASLI PRODUCTS DIKHENGE
         })
     
@@ -258,5 +257,6 @@ def admin_dashboard(
         "total_orders": db.query(Order).count(),       
         "your_scopes": current_user.scopes
     }
+
 
 
