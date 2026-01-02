@@ -37,4 +37,3 @@ class Product(Base):
     name = Column(String(100), nullable=False, unique=True)
     
     orders = relationship("Order", secondary=order_product, back_populates="products")
-
