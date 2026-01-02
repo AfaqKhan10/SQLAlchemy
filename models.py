@@ -1,7 +1,6 @@
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy import Column, Integer, String, ForeignKey ,Table , Boolean
 
-
 Base = declarative_base()
 
 class User(Base):
@@ -38,3 +37,4 @@ class Product(Base):
     name = Column(String(100), nullable=False, unique=True)
     
     orders = relationship("Order", secondary=order_product, back_populates="products")
+
