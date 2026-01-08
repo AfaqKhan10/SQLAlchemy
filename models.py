@@ -3,6 +3,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey ,Table , Boolean
 
 Base = declarative_base()
 
+
 class User(Base):
     __tablename__ = "users"  e
     id = Column(Integer, primary_key=True)  
@@ -22,6 +23,7 @@ order_product = Table(
 )
 
 
+# table
 class Order(Base):
     __tablename__ = "orders"
     id = Column(Integer, primary_key=True) 
@@ -37,3 +39,6 @@ class Product(Base):
     name = Column(String(100), nullable=False, unique=True)
     
     orders = relationship("Order", secondary=order_product, back_populates="products")
+
+
+
